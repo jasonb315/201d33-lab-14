@@ -77,10 +77,49 @@ var submittt = document.getElementById('catalog');
 submittt.addEventListener('submit', cartDater);
 
 
+var cartSection = document.getElementById('cartContents');
+
+function generateHeader(){
+  var headerTrElement = document.createElement('tr');
+  var thItem = document.createElement('th');
+  var thNumber = document.createElement('th');
+  thItem.textContent = 'ITEM:';
+  thNumber.textContent = 'Quantity:'
+  headerTrElement.appendChild(thItem);
+  headerTrElement.appendChild(thNumber);
+  cartSection.appendChild(headerTrElement);
+}
+generateHeader();
+
 function cartDater (event){
   event.preventDefault();
-  //grab option name, find associated object in cart, add to qiantity
-  //every time array updates, overwrite local memory
-  //update cart display
+  var itemx = event.target.items.value;
+  var quanx = event.target.quantity.value;
+
+  var quany = parseInt(quanx);
+
+  for(var i =0 ; i < shoppingCart.length ; i++){
+    if(shoppingCart[i].name === itemx){
+      shoppingCart[i].quantity = (shoppingCart[i].quantity + quany); //globararrayupdated
+      localStorage.setItem('localCart', JSON.stringify(shoppingCart)); //localstorage updated
+    }
+  }
+
+  for (var i =0 ; i < shoppingCart.length ; i++){
+    if (shoppingCart[i].quantity > 0){
+      var listRow = document.createElement('tr');
+      var listItem = document.createElement('td');
+      var listNumber = document.createElement('td');
+      listItem.textContent = shoppingCart[i].name;
+      listNumber.textContent = shoppingCart[i].quantity;
+      listRow.appendChild(listItem);
+      listRow.appendChild(listNumber);
+      cartSection.appendChild(listRow);
+    }
+  }
+
+//update cart display
+// var cartRow = document.createElement('option');
+
   console.log('ding!');
 }
