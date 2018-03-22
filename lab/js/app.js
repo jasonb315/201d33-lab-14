@@ -1,15 +1,27 @@
 'use strict';
+var itemsInCart = [];
+var allProductNames = []; //;populated correctly!!;
+var allProducts =[];
 
-// TODO: Create a "Cart" constructor that holds quantity, item, an an array of items in the cart
 
+var shoppingCart = [];
 
-// Product Contructor
+// var ShoppingCart = function(){
+//   this.cartContents = []; //populate with complete product array with 0 each
+// }
+
+var CartItem = function(name, quantity){
+  this.name = name;
+  this.quantity = quantity;
+}
+
 var Product = function(filePath, name) {
   this.filePath = filePath;
   this.name = name;
-  Product.allProducts.push(this);
+  allProductNames.push(this.name);
+  allProducts.push(this);
 };
-Product.allProducts = [];
+
 
 function generateCatalog() {
   new Product('assets/bag.jpg', 'Bag');
@@ -32,7 +44,43 @@ function generateCatalog() {
   new Product('assets/usb.gif', 'USB');
   new Product('assets/water-can.jpg', 'Water Can');
   new Product('assets/wine-glass.jpg', 'Wine Glass');
+  //render pictures?
+
 }
 
-// Initialize the app
 generateCatalog();
+
+
+var listPut = document.getElementById('items');
+function dropDown (){
+  for (var i = 0 ; i < allProducts.length ; i++){
+    
+    var option = document.createElement('option');
+    option.textContent = allProductNames[i];
+    listPut.appendChild(option);
+  }
+}
+
+dropDown();
+
+function populateCart(){
+  //for the legnth of products, create an object for each with a quantity key.
+  for (var p = 0 ; p < allProducts.length ; p++){
+    var cartItem = new CartItem(allProductNames[p], 0);
+    shoppingCart.push(cartItem);
+  }
+}
+
+populateCart();
+
+var submittt = document.getElementById('catalog');
+submittt.addEventListener('submit', cartDater);
+
+
+function cartDater (event){
+  event.preventDefault();
+  //grab option name, find associated object in cart, add to qiantity
+  //every time array updates, overwrite local memory
+  //update cart display
+  console.log('ding!');
+}
