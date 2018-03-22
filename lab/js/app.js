@@ -1,15 +1,27 @@
 'use strict';
+var itemsInCart = [];
+var allProductNames = []; //;populated correctly!!;
+var allProducts =[];
 
-// TODO: Create a "Cart" constructor that holds quantity, item, an an array of items in the cart
 
+var shoppingCart = [];
 
-// Product Contructor
+// var ShoppingCart = function(){
+//   this.cartContents = []; //populate with complete product array with 0 each
+// }
+
+var CartItem = function(name, quantity){
+  this.name = name;
+  this.quantity = quantity;
+}
+
 var Product = function(filePath, name) {
   this.filePath = filePath;
   this.name = name;
-  Product.allProducts.push(this);
+  allProductNames.push(this.name);
+  allProducts.push(this);
 };
-Product.allProducts = [];
+
 
 function generateCatalog() {
   new Product('assets/bag.jpg', 'Bag');
@@ -32,7 +44,82 @@ function generateCatalog() {
   new Product('assets/usb.gif', 'USB');
   new Product('assets/water-can.jpg', 'Water Can');
   new Product('assets/wine-glass.jpg', 'Wine Glass');
+  //render pictures?
+
 }
 
-// Initialize the app
 generateCatalog();
+
+
+var listPut = document.getElementById('items');
+function dropDown (){
+  for (var i = 0 ; i < allProducts.length ; i++){
+    
+    var option = document.createElement('option');
+    option.textContent = allProductNames[i];
+    listPut.appendChild(option);
+  }
+}
+
+dropDown();
+
+function populateCart(){
+  //for the legnth of products, create an object for each with a quantity key.
+  for (var p = 0 ; p < allProducts.length ; p++){
+    var cartItem = new CartItem(allProductNames[p], 0);
+    shoppingCart.push(cartItem);
+  }
+}
+
+populateCart();
+
+var submittt = document.getElementById('catalog');
+submittt.addEventListener('submit', cartDater);
+
+
+var cartSection = document.getElementById('cartContents');
+
+function generateHeader(){
+  var headerTrElement = document.createElement('tr');
+  var thItem = document.createElement('th');
+  var thNumber = document.createElement('th');
+  thItem.textContent = 'ITEM:';
+  thNumber.textContent = 'Quantity:'
+  headerTrElement.appendChild(thItem);
+  headerTrElement.appendChild(thNumber);
+  cartSection.appendChild(headerTrElement);
+}
+generateHeader();
+
+function cartDater (event){
+  event.preventDefault();
+  var itemx = event.target.items.value;
+  var quanx = event.target.quantity.value;
+
+  var quany = parseInt(quanx);
+
+  for(var i =0 ; i < shoppingCart.length ; i++){
+    if(shoppingCart[i].name === itemx){
+      shoppingCart[i].quantity = (shoppingCart[i].quantity + quany); //globararrayupdated
+      localStorage.setItem('localCart', JSON.stringify(shoppingCart)); //localstorage updated
+    }
+  }
+
+  for (var i =0 ; i < shoppingCart.length ; i++){
+    if (shoppingCart[i].quantity > 0){
+      var listRow = document.createElement('tr');
+      var listItem = document.createElement('td');
+      var listNumber = document.createElement('td');
+      listItem.textContent = shoppingCart[i].name;
+      listNumber.textContent = shoppingCart[i].quantity;
+      listRow.appendChild(listItem);
+      listRow.appendChild(listNumber);
+      cartSection.appendChild(listRow);
+    }
+  }
+
+//update cart display
+// var cartRow = document.createElement('option');
+
+  console.log('ding!');
+}

@@ -4,6 +4,14 @@ var Cart = [];
 
 function loadCart() {
   // TODO: Pull the cart (if it exists) from Local Storage and make available to this app
+
+  var checkCart = JSON.parse(localStorage.getItem('localCart'));
+  if (checkCart && checkCart.length){
+    Cart = checkCart;
+  } else {
+    alert('cart is empty')
+  }
+
 }
 
 // TODO: Fill in the <tr>'s under the <tbody> for each item in the cart
