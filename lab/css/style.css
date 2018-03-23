@@ -1,4 +1,36 @@
+body {
+  background-color: grey;
+}
+
+header {
+  background-color: lightblue;
+  height:10vh;
+}
+
+main {
+  background-color: white;
+  height:60vh;
+}
+
+footer {
+  height:20vh;
+  text-align: center;
+}
+
 #items {
   width:20%;
   color: black;
+}
+
+tr {
+  margin-top:10px;
+}
+
+td {
+  background-color: steelblue;
+  margin:10px;
+}
+
+th {
+
 }

@@ -105,6 +105,17 @@ function cartDater (event){
     }
   }
 
+//TODO clear out table before rerender to prevent stacked orders.
+// listNumber.innerHTMl = '';
+// FEEEEEEEEEECK!!!!!!!!!
+// var contentChecker = false;
+//  if (listNumber.textContent){
+//    console.log('is truthy')
+//   //  listRow.removeChild('tr');
+//   //  create fresh apppend
+//  }
+
+
   for (var i =0 ; i < shoppingCart.length ; i++){
     if (shoppingCart[i].quantity > 0){
       var listRow = document.createElement('tr');
@@ -115,6 +126,8 @@ function cartDater (event){
       listRow.appendChild(listItem);
       listRow.appendChild(listNumber);
       cartSection.appendChild(listRow);
+      // caontentChecker = true;
+      
     }
   }
 
